@@ -1,0 +1,3100 @@
+{
+	"info": {
+		"_postman_id": "75df2b9e-0b16-410d-8499-c140d6a2c834",
+		"name": "drogon_backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38347663"
+	},
+	"item": [
+		{
+			"name": "drogon_backend_users",
+			"item": [
+				{
+					"name": "register",
+					"item": [
+						{
+							"name": "create_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201. If test failed, try again for another user.\", () => {",
+											"    pm.response.to.have.status(201); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"cherep\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{REGISTER_PATH}}",
+									"host": [
+										"{{REGISTER_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "not_json",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 415.\", () => {",
+											"    pm.response.to.have.status(415); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{REGISTER_PATH}}",
+									"host": [
+										"{{REGISTER_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "conflict_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 409. If test failed, try again for same user.\", () => {",
+											"    pm.response.to.have.status(409); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"cherep\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{REGISTER_PATH}}",
+									"host": [
+										"{{REGISTER_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty_body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400.\", () => {",
+											"    pm.response.to.have.status(400); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{REGISTER_PATH}}",
+									"host": [
+										"{{REGISTER_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "missing_required_fields",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400.\", () => {",
+											"    pm.response.to.have.status(400); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"cherep\", \n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{REGISTER_PATH}}",
+									"host": [
+										"{{REGISTER_PATH}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "correct_login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"cherep\", \n    \"password\": \"kaif\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOGIN_PATH}}",
+									"host": [
+										"{{LOGIN_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "incorrect_login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401.\", () => {",
+											"    pm.response.to.have.status(401); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"missing_login\", \n    \"password\": \"kaif\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOGIN_PATH}}",
+									"host": [
+										"{{LOGIN_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "not_json",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 415.\", () => {",
+											"    pm.response.to.have.status(415); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{LOGIN_PATH}}",
+									"host": [
+										"{{LOGIN_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "missing_required_fields1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400.\", () => {",
+											"    pm.response.to.have.status(400); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"not_login_field\": \"missing_login\", \n    \"password\": \"kaif\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOGIN_PATH}}",
+									"host": [
+										"{{LOGIN_PATH}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty_body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400.\", () => {",
+											"    pm.response.to.have.status(400); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOGIN_PATH}}",
+									"host": [
+										"{{LOGIN_PATH}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user_put",
+					"item": [
+						{
+							"name": "user_conflict",
+							"item": [
+								{
+									"name": "delete_user1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete_user2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/2",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create_same_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 409. If test failed, try again for same user.\", () => {",
+													"    pm.response.to.have.status(409); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/2",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "create_new_user",
+							"item": [
+								{
+									"name": "delete_user1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201. If test failed, try again for another user.\", () => {",
+													"    pm.response.to.have.status(201); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "alter_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail1\",\n    \"password\": \"kaif1\",\n    \"email\": \"aaa@ru1\",\n    \"telegram\": \"tgweb1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "not_json",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 415.\", () => {",
+											"    pm.response.to.have.status(415); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "empty_body",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400.\", () => {",
+											"    pm.response.to.have.status(400); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "missing_required_fields",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400.\", () => {",
+											"    pm.response.to.have.status(400); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"cherep\", \n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user_get",
+					"item": [
+						{
+							"name": "get_correct",
+							"item": [
+								{
+									"name": "create_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"login\": \"cherep\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get_correct",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200.\", () => {",
+													"    pm.response.to.have.status(200); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}\\1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get_missing_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404.\", () => {",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/2",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user_delete",
+					"item": [
+						{
+							"name": "delete_existing_user",
+							"item": [
+								{
+									"name": "create_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"login\": \"cherep\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete_existing_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.response.to.have.status(200); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete_removing_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", () => {",
+													"    pm.response.to.have.status(404); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "drogon_backend_routes",
+			"item": [
+				{
+					"name": "post_routes",
+					"item": [
+						{
+							"name": "correct_add_route",
+							"item": [
+								{
+									"name": "delete_user1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "correct_add_route",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201.\", () => {",
+													"    pm.response.to.have.status(201); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Челябинск\", \n    \"destination\": \"Москва\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-15T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "correct_add_route_transfer",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201.\", () => {",
+													"    pm.response.to.have.status(201); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Москва\", \n    \"destination\": \"Магнитогорск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-15T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":true\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "incorrect_add_route",
+							"item": [
+								{
+									"name": "user_is_not_exists",
+									"item": [
+										{
+											"name": "delete_user1",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{USER_PATH}}/1",
+													"host": [
+														"{{USER_PATH}}"
+													],
+													"path": [
+														"1"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "correct_add_route",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 404.\", () => {",
+															"    pm.response.to.have.status(404); ",
+															"});"
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{USER_PATH}}/1/routes",
+													"host": [
+														"{{USER_PATH}}"
+													],
+													"path": [
+														"1",
+														"routes"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "create_user",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"request": {
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{USER_PATH}}/1",
+													"host": [
+														"{{USER_PATH}}"
+													],
+													"path": [
+														"1"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "incorrect_type_of_journey",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400.\", () => {",
+													"    pm.response.to.have.status(400); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Москва\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia1\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-01-24\",\n    \"end_date_monitoring\": \"2025-01-26\",\n    \"direct\":false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "incorrect_type_of_freq_monitoring",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400.\", () => {",
+													"    pm.response.to.have.status(400); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Москва\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes1\",\n    \"begin_date_monitoring\": \"2025-01-24T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-01-26T14:30:00Z\",\n    \"direct\":false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "missing_reqгuired_fields",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400.\", () => {",
+													"    pm.response.to.have.status(400); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Москва\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"end_date_monitoring\": \"2025-01-26T14:30:00Z\",\n    \"direct\":false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "incorrect_dates",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 422.\", () => {",
+													"    pm.response.to.have.status(422); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-01-28T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-01-20T14:30:00Z\",\n    \"direct\":false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "wrong_names_of_cities",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400.\", () => {",
+													"    pm.response.to.have.status(400); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Мурмаввнск\", \n    \"destination\": \"Челябинсвк\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-01-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-01-28T14:30:00Z\",\n    \"direct\":true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "get_routes",
+					"item": [
+						{
+							"name": "get_correct",
+							"item": [
+								{
+									"name": "create_user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "correct_add_route1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-01-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-01-28T14:30:00Z\",\n    \"direct\":false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "correct_add_route2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"origin\": \"Москва\", \n    \"destination\": \"Тюмень\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-01-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-01-28T14:30:00Z\",\n    \"direct\":false\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get_routes",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200.\", () => {",
+													"    pm.response.to.have.status(200); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "get_not_found",
+							"item": [
+								{
+									"name": "delete_user1",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get_routes",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404.\", () => {",
+													"    pm.response.to.have.status(404); ",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{USER_PATH}}/1/routes",
+											"host": [
+												"{{USER_PATH}}"
+											],
+											"path": [
+												"1",
+												"routes"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "put_route",
+					"item": [
+						{
+							"name": "delete_user1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "put_route1_create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201.\", () => {",
+											"    pm.response.to.have.status(201); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "put_route1_update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get_route",
+					"item": [
+						{
+							"name": "delete_user1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "put_route1_create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_route_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_route_not_exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404.\", () => {",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/2",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_route_user_not_exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404.\", () => {",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/2/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"2",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "delete_route",
+					"item": [
+						{
+							"name": "delete_user1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "put_route1_create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_route_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_route_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_route_not_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404.\", () => {",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_route_not_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404.\", () => {",
+											"    pm.response.to.have.status(404); ",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "drogon_backend_ticket_data",
+			"item": [
+				{
+					"name": "get_current",
+					"item": [
+						{
+							"name": "delete_user1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "put_route1_create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_current_from_db",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"pm.test(\"Header 'data_status' is 'received from hash'. If test fail, try other, 30's minutes older data\", () => {",
+											"    pm.response.to.have.header(\"data_status\", \"received from hash\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1/current",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_current_from_api",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											"",
+											"// pm.test(\"Header 'data_status' is 'received from hash'. If test fail, try other, 30's minutes older data\", () => {",
+											"//     pm.response.to.have.header(\"data_status\", \"received from API\");",
+											"// });",
+											"// or wait 30 minutes"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1/current",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_route_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_current_from_db_not_exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404.\", () => {",
+											"    pm.response.to.have.status(404); ",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1/current",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1",
+										"current"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get_cheapest",
+					"item": [
+						{
+							"name": "delete_user1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "put_route1_create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_cheapest",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1/cheapest",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1",
+										"cheapest"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_route_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_cheapest_not_exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404.\", () => {",
+											"    pm.response.to.have.status(404); ",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1/cheapest",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1",
+										"cheapest"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get_statistic",
+					"item": [
+						{
+							"name": "delete_user1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"user_create_user_request\", \n    \"user_name\": \"mikhail\",\n    \"password\": \"kaif\",\n    \"email\": \"aaa@ru\",\n    \"telegram\": \"tgweb\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "put_route1_create",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"origin\": \"Санкт-Петербург\", \n    \"destination\": \"Челябинск\",\n    \"type_of_journey\": \"avia\",\n    \"frequency_of_monitoring\": \"5\",\n    \"type_frequency_of_monitoring\":\"minutes\",\n    \"begin_date_monitoring\": \"2025-02-25T14:30:00Z\",\n    \"end_date_monitoring\": \"2025-02-28T14:30:00Z\",\n    \"direct\":false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_statistic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200.\", () => {// тут нужно еще проверить со старыми данными",
+											"    pm.response.to.have.status(200); ",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1/statistic",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1",
+										"statistic"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete_route_exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{USER_PATH}}/1/routes/1",
+									"host": [
+										"{{USER_PATH}}"
+									],
+									"path": [
+										"1",
+										"routes",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "test",
+			"item": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:8083",
+			"type": "string"
+		},
+		{
+			"key": "USER_PATH",
+			"value": "{{HOST}}/users",
+			"type": "string"
+		},
+		{
+			"key": "LOGIN_PATH",
+			"value": "{{HOST}}/users/login",
+			"type": "string"
+		},
+		{
+			"key": "REGISTER_PATH",
+			"value": "{{HOST}}/users/register",
+			"type": "string"
+		}
+	]
+}
